@@ -59,16 +59,8 @@ public class SellerDaoJDBC implements SellerDao {
 			rs = st.executeQuery();
 			//Se o proximo rs for nullo significa que nao há sellers para consulta
 			if(rs.next()) {
-				Department dp = new Department();
-				dp.setId(rs.getInt("DepartmentId"));
-				dp.setName(rs.getString("DepName"));
-				Seller sl = new Seller();
-				sl.setId(rs.getInt("Id"));
-				sl.setName(rs.getString("Name"));
-				sl.setEmail(rs.getString("Email"));
-				sl.setBirthDate(rs.getDate("BirthDate"));
-				sl.setBaseSalary(rs.getDouble("BaseSalary"));
-				sl.setDepartment(dp);
+				Department dp = instantiateDepartment(rs);
+				Seller sl = instantiateSeller(rs, dp);
 				return sl;
 			}
 			
@@ -83,6 +75,26 @@ public class SellerDaoJDBC implements SellerDao {
 		
 		return null;
 	}
+	
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		Seller obj = new Seller();
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep);
+		return obj;
+		}
+	
+	
+		private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+		return dep;
+		}
+
 
 	@Override
 	public List<Seller> findALL() {
