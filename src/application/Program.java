@@ -28,11 +28,23 @@ public class Program {
 		for ( Seller obj : list2) {
 			System.out.println(obj);
 		}
+		
 		System.out.println("=== TEST 4: seller insert ======");
 		Seller seller2 = new Seller(0, "Antonio","antonio@gmail",new Date(),3000.00,department);
 		sd.insert(seller2);
 		System.out.println("Inserted! New id = "+ seller2.getId());
-
+		
+		
+		System.out.println("\n=== TEST 4: Update seller  ======\n");
+		seller = sd.findById(24);
+		seller.setName("Ana");
+		sd.update(seller);
+		
+		System.out.println("\n=== TEST 5: Delete seller  ======\n");
+		sd.deleteById(25);
+		
+		
+		
 		
 
 	}
