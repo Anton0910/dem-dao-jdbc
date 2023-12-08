@@ -32,6 +32,9 @@ public class Seller implements Serializable{
 	}
 	
 	
+
+
+
 	public int getId() {
 		return id;
 	}
